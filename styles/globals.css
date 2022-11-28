@@ -1,7 +1,7 @@
 :root {
   --main-background: #f2fdff;
   --shadow-box: #c2c2c2;
-  --bookmarked: #cfb108;
+  --refresh-needed: #a10c06;
 }
 body {
   padding: 0;

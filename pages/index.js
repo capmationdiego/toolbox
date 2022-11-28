@@ -10,10 +10,13 @@ export default function Home() {
         position: "relative",
         backgroundColor: "var(--main-background)",
         padding: "15px",
+        flexWrap: "wrap",
       }}
       direction="row"
       spacing={1}
     >
+      <Card />
+      <Card />
       <Card />
     </Stack>
   );

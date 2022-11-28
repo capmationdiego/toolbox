@@ -1,54 +1,82 @@
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
 import {
   Divider,
   IconButton,
   Stack,
   Typography,
 } from "@mui/material";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { React, useState } from "react";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import { React, useEffect, useState } from "react";
+import LoadingCard from "./LoadingCard";
 
 export default function Card() {
-  const [bookmarkIconColor, setBookmarkIconColor] = useState("gray");
+  const [artObject, setArtObject] = useState();
+  const [loading, isLoading] = useState(true);
+  const totalArtObjects = 4000;
 
-  const handleIconClick = () => {
-    if (bookmarkIconColor === "gray") {
-      setBookmarkIconColor("var(--bookmarked)");
-    } else {
-      setBookmarkIconColor("gray");
-    }
+  const randomObjectID = () => Math.floor(Math.random() * (totalArtObjects) + 10);
+
+  const fetchArtObject = async (objectID) => {
+    isLoading(true);
+    await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.message !== "ObjectID not found") {
+          if (res.primaryImageSmall !== "") {
+            setArtObject(res);
+          }
+        }
+      }).finally(() => isLoading(false));
   };
 
+  const handleIconClick = () => {
+    fetchArtObject(randomObjectID());
+  };
+
+  useEffect(() => {
+    fetchArtObject(randomObjectID());
+  }, []);
   return (
-    <Stack
-      sx={{
-        boxShadow: "0px 1px 15px 0 var(--shadow-box)",
-        borderRadius: "6px",
-        backgroundColor: "white",
-        width: "350px",
-        height: "250px",
-        padding: "25px",
-      }}
-      spacing={1}
-    >
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="h5">
-          Lorem Ipsum
-        </Typography>
-        <IconButton onClick={() => handleIconClick()}>
-          <BookmarkIcon sx={{
-            color: bookmarkIconColor,
+
+    <div>
+      {!loading ? (
+        <Stack
+          sx={{
+            boxShadow: "0px 1px 15px 0 var(--shadow-box)",
+            borderRadius: "6px",
+            backgroundColor: "white",
+            width: "350px",
+            height: "250px",
+            padding: "25px",
           }}
-          />
-        </IconButton>
-      </Stack>
-      <Divider />
-      <Typography variant="subtitle2">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sem justo, sagittis vel
-        consectetur viverra, sodales nec erat. Quisque condimentum rutrum vestibulum. Nam sed
-        tincidunt sem, eu volutpat quam. Sed mattis lobortis arcu hendrerit pharetra. Aenean
-        placerat eget erat sed ultrices. Aenean congue pharetra nunc, a euismod massa posuere
-        ac. Sed iaculis varius mattis. Donec fringilla bibendum mauris, a aliquet purus.
-      </Typography>
-    </Stack>
+          spacing={1}
+        >
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <Typography variant="h5" noWrap>
+              {artObject ? artObject.title : ""}
+            </Typography>
+            <IconButton onClick={() => handleIconClick()}>
+              <RefreshIcon />
+            </IconButton>
+          </Stack>
+          <Divider />
+          {artObject ? (
+            <img
+              src={artObject.primaryImageSmall}
+              alt={artObject.title}
+              style={{
+                height: "80%",
+                width: "100%",
+                objectFit: "contain",
+              }}
+            />
+          ) : (null)}
+        </Stack>
+      ) : (
+        <LoadingCard handle={handleIconClick} />
+      )}
+
+    </div>
   );
 }
