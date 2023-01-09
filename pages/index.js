@@ -7,16 +7,14 @@ export default function Home() {
     <Stack
       sx={{
         height: "100vh",
-        position: "relative",
         backgroundColor: "var(--main-background)",
-        padding: "15px",
-        flexWrap: "wrap",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
       direction="row"
       spacing={1}
     >
-      <Card />
-      <Card />
       <Card />
     </Stack>
   );

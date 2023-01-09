@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 import {
+  Button,
   Divider,
   IconButton,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -15,67 +18,81 @@ export default function Card() {
   const [loading, isLoading] = useState(true);
   const totalArtObjects = 4000;
 
-  const randomObjectID = () => Math.floor(Math.random() * (totalArtObjects) + 10);
+  // const randomObjectID = () => Math.floor(Math.random() * (totalArtObjects) + 10);
 
-  const fetchArtObject = async (objectID) => {
-    isLoading(true);
-    await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.message !== "ObjectID not found") {
-          if (res.primaryImageSmall !== "") {
-            setArtObject(res);
-          }
-        }
-      }).finally(() => isLoading(false));
-  };
+  // const fetchArtObject = async (objectID) => {
+  //   isLoading(true);
+  //   await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`)
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       if (res.message !== "ObjectID not found") {
+  //         if (res.primaryImageSmall !== "") {
+  //           setArtObject(res);
+  //         }
+  //       }
+  //     }).finally(() => isLoading(false));
+  // };
 
-  const handleIconClick = () => {
-    fetchArtObject(randomObjectID());
-  };
+  // const handleIconClick = () => {
+  //   fetchArtObject(randomObjectID());
+  // };
 
-  useEffect(() => {
-    fetchArtObject(randomObjectID());
-  }, []);
+  // useEffect(() => {
+  //   fetchArtObject(randomObjectID());
+  // }, []);
   return (
 
     <div>
-      {!loading ? (
+      <Stack
+        sx={{
+          boxShadow: "0px 1px 15px 0 var(--shadow-box)",
+          borderRadius: "6px",
+          backgroundColor: "white",
+          width: "250px",
+          height: "auto",
+          padding: "25px",
+        }}
+        spacing={2}
+      >
         <Stack
-          sx={{
-            boxShadow: "0px 1px 15px 0 var(--shadow-box)",
-            borderRadius: "6px",
-            backgroundColor: "white",
-            width: "350px",
-            height: "250px",
-            padding: "25px",
-          }}
+          direction="column"
+          alignItems="center"
+          justifyContent="space-between"
           spacing={1}
         >
-          <Stack direction="row" alignItems="center" justifyContent="space-between">
-            <Typography variant="h5" noWrap>
-              {artObject ? artObject.title : ""}
-            </Typography>
-            <IconButton onClick={() => handleIconClick()}>
-              <RefreshIcon />
-            </IconButton>
-          </Stack>
-          <Divider />
-          {artObject ? (
-            <img
-              src={artObject.primaryImageSmall}
-              alt={artObject.title}
-              style={{
-                height: "80%",
-                width: "100%",
-                objectFit: "contain",
-              }}
-            />
-          ) : (null)}
+          <img
+            src="img/logo.png"
+            alt="Girl in a jacket"
+            width="150"
+            height="auto"
+          />
+          <Typography variant="h5" noWrap>
+            Welcome!
+          </Typography>
         </Stack>
-      ) : (
-        <LoadingCard handle={handleIconClick} />
-      )}
+        <Divider />
+        <TextField
+          label="Username"
+          size="small"
+        />
+        <TextField
+          label="Password"
+          type="password"
+          size="small"
+        />
+        <Button
+          variant="contained"
+          sx={{
+            textTransform: "none !important",
+            backgroundColor: "#3268a8",
+            "&:hover": {
+              background: "#3a74ba !important",
+            },
+          }}
+        >
+          Login
+        </Button>
+      </Stack>
 
     </div>
   );
