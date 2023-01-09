@@ -3,11 +3,19 @@
 import {
   Button,
   Divider,
-  Stack, TextField, Typography,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import NavigationBar from "../../components/NavigationBar";
 import Actividad from "../../components/Actividad";
+import Resultados from "../../components/Resultados";
+
+const resultados = {
+  resultado1: "Cuestionarios",
+  resultado2: "Actividades grupales",
+  resultado3: "Ensayos",
+};
 
 export default function Homepage() {
   const [parameters, setParameters] = useState({});
@@ -104,6 +112,7 @@ export default function Homepage() {
       >
         Analizar
       </Button>
+      <Resultados resultado={resultados} />
     </Stack>
   );
 }
