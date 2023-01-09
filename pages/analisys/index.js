@@ -106,6 +106,7 @@ export default function Homepage() {
         sx={{
           textTransform: "none !important",
           width: "90%",
+          maxWidth: "1500px",
           backgroundColor: "#3268a8",
           "&:hover": {
             background: "#3a74ba !important",
