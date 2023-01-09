@@ -40,6 +40,7 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    router.push("/");
   };
 
   return (
