@@ -20,6 +20,7 @@ export default function Homepage({ resultado }) {
         padding: 1,
         width: "90%",
         height: "auto",
+        minHeight: "140px",
         maxWidth: "1500px",
         boxShadow: "0 1px 16px 0 #c3c4c2",
         display: "flex",

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 import {
@@ -11,7 +12,7 @@ import NavigationBar from "../../components/NavigationBar";
 import Actividad from "../../components/Actividad";
 import Resultados from "../../components/Resultados";
 
-const resultados = {
+const data = {
   resultado1: "Cuestionarios",
   resultado2: "Actividades grupales",
   resultado3: "Ensayos",
@@ -19,6 +20,7 @@ const resultados = {
 
 export default function Homepage() {
   const [parameters, setParameters] = useState({});
+  const [resultados, setResultados] = useState({});
   // const randomObjectID = () => Math.floor(Math.random() * (totalArtObjects) + 10);
 
   // const fetchArtObject = async (objectID) => {
