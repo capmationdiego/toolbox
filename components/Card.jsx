@@ -1,48 +1,62 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable no-alert */
 import {
+  Alert,
+  Backdrop,
   Button,
+  CircularProgress,
   Divider,
-  IconButton,
+  Snackbar,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import { React, useEffect, useState } from "react";
-import LoadingCard from "./LoadingCard";
+import { useRouter } from "next/router";
+import { React, useState } from "react";
+import { USERS_HASH_TABLE } from "../pages/homepage/HomepageConstants";
 
 export default function Card() {
-  const [artObject, setArtObject] = useState();
-  const [loading, isLoading] = useState(true);
-  const totalArtObjects = 4000;
+  const router = useRouter();
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [error, isError] = useState(false);
+  const [backdrop, setBackdrop] = useState(false);
 
-  // const randomObjectID = () => Math.floor(Math.random() * (totalArtObjects) + 10);
+  const handleCloseBackdrop = () => {
+    setBackdrop(false);
+  };
 
-  // const fetchArtObject = async (objectID) => {
-  //   isLoading(true);
-  //   await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`)
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (res.message !== "ObjectID not found") {
-  //         if (res.primaryImageSmall !== "") {
-  //           setArtObject(res);
-  //         }
-  //       }
-  //     }).finally(() => isLoading(false));
-  // };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    isError(false);
+  };
 
-  // const handleIconClick = () => {
-  //   fetchArtObject(randomObjectID());
-  // };
+  const handleLogin = () => {
+    setBackdrop(true);
+    setTimeout(() => {
+      if (USERS_HASH_TABLE[username] === password) {
+        router.push("/homepage");
+      } else {
+        isError(true);
+        setBackdrop(false);
+      }
+    }, 800);
+  };
 
-  // useEffect(() => {
-  //   fetchArtObject(randomObjectID());
-  // }, []);
   return (
-
     <div>
+      <Backdrop
+        sx={{ color: "#3268a8", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={backdrop}
+        onClick={handleCloseBackdrop}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Snackbar open={error} autoHideDuration={3000} onClose={handleClose}>
+        <Alert variant="filled" onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          Wrong credentials
+        </Alert>
+      </Snackbar>
       <Stack
         sx={{
           boxShadow: "0px 1px 15px 0 var(--shadow-box)",
@@ -74,14 +88,19 @@ export default function Card() {
         <TextField
           label="Username"
           size="small"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
           label="Password"
           type="password"
           size="small"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Button
           variant="contained"
+          onClick={() => handleLogin()}
           sx={{
             textTransform: "none !important",
             backgroundColor: "#3268a8",
