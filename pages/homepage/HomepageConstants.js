@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 export const USERS_HASH_TABLE = {
-  estudiante: "12345",
+  1: "12345",
+  2: "12345",
 };
 
 export const MODULES = [

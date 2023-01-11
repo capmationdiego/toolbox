@@ -36,6 +36,7 @@ export default function Card() {
     setTimeout(() => {
       if (USERS_HASH_TABLE[username] === password) {
         router.push("/homepage");
+        localStorage.setItem("userId", username);
       } else {
         isError(true);
         setBackdrop(false);

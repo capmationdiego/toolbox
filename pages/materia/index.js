@@ -14,19 +14,13 @@ import Resultados from "../../components/Resultados";
 export default function Homepage() {
   const [resultados, setResultados] = useState(null);
 
-  useEffect(() => {
-    if (resultados) {
-      console.log(resultados);
-    }
-  }, [resultados]);
-
-  const fetchObject = async () => {
+  const fetchObject = async (id) => {
     await fetch(`http://127.0.0.1:5000/recomendacionid`, {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: 55 }),
+      body: JSON.stringify({ id }),
     })
       .then((res) => res.json())
       .then((res) => {
@@ -35,7 +29,8 @@ export default function Homepage() {
   };
 
   useEffect(() => {
-    fetchObject();
+    console.log(localStorage.getItem("userId"));
+    fetchObject(Number(localStorage.getItem("userId")));
   }, []);
   return (
     <Stack
