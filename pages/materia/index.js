@@ -2,7 +2,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 import {
-  Button,
   Divider,
   Stack,
   TextField,
@@ -11,12 +10,6 @@ import {
 import { React, useState, useEffect } from "react";
 import NavigationBar from "../../components/NavigationBar";
 import Resultados from "../../components/Resultados";
-
-const data = {
-  resultado1: "Cuestionarios",
-  resultado2: "Actividades grupales",
-  resultado3: "Ensayos",
-};
 
 export default function Homepage() {
   const [parameters, setParameters] = useState({});
@@ -100,22 +93,6 @@ export default function Homepage() {
           </Stack>
         </Stack>
       </Stack>
-
-      {/* <Button
-        variant="contained"
-        onClick={() => fetchObject(55)}
-        sx={{
-          textTransform: "none !important",
-          width: "90%",
-          maxWidth: "1500px",
-          backgroundColor: "#3268a8",
-          "&:hover": {
-            background: "#3a74ba !important",
-          },
-        }}
-      >
-        Analizar
-      </Button> */}
       {resultados && (
         <Resultados resultado={resultados} />
       )}
