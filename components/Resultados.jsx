@@ -31,25 +31,25 @@ export default function Homepage({ resultado }) {
         Resultados
       </Typography>
       <Divider sx={{ marginBottom: "10px", width: "100%" }} />
-      {resultado.resultado1 && (
+      {resultado.R1 && (
       <Typography variant="subtitle1" noWrap>
         1.
         {" "}
-        {resultado.resultado1}
+        {resultado.R1}
       </Typography>
       )}
-      {resultado.resultado2 && (
+      {resultado.R2 && (
       <Typography variant="subtitle1" noWrap>
         2.
         {" "}
-        {resultado.resultado2}
+        {resultado.R2}
       </Typography>
       )}
-      {resultado.resultado3 && (
+      {resultado.R3 && (
       <Typography variant="subtitle1" noWrap>
         3.
         {" "}
-        {resultado.resultado3}
+        {resultado.R3}
       </Typography>
       )}
 

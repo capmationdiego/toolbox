@@ -5,11 +5,11 @@ import {
   Button,
   Divider,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import NavigationBar from "../../components/NavigationBar";
-import Actividad from "../../components/Actividad";
 import Resultados from "../../components/Resultados";
 
 const data = {
@@ -20,33 +20,31 @@ const data = {
 
 export default function Homepage() {
   const [parameters, setParameters] = useState({});
-  const [resultados, setResultados] = useState({});
-  // const randomObjectID = () => Math.floor(Math.random() * (totalArtObjects) + 10);
-
-  // const fetchArtObject = async (objectID) => {
-  //   isLoading(true);
-  //   await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`)
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (res.message !== "ObjectID not found") {
-  //         if (res.primaryImageSmall !== "") {
-  //           setArtObject(res);
-  //         }
-  //       }
-  //     }).finally(() => isLoading(false));
-  // };
-
-  // const handleIconClick = () => {
-  //   fetchArtObject(randomObjectID());
-  // };
-
-  // useEffect(() => {
-  //   fetchArtObject(randomObjectID());
-  // }, []);
+  const [resultados, setResultados] = useState(null);
 
   useEffect(() => {
-    console.log(parameters);
-  }, [parameters]);
+    if (resultados) {
+      console.log(resultados);
+    }
+  }, [resultados]);
+
+  const fetchObject = async () => {
+    await fetch(`http://127.0.0.1:5000/recomendacionid`, {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: 55 }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setResultados(res);
+      }).finally();
+  };
+
+  useEffect(() => {
+    fetchObject();
+  }, []);
   return (
     <Stack
       sx={{
@@ -84,15 +82,28 @@ export default function Homepage() {
         <Divider sx={{ marginBottom: "10px", width: "100%" }} />
         <Stack direction="row" width="100%" spacing={1}>
           <Stack direction="column" spacing={1} width="100%">
-            <Actividad handle={setParameters} label="Actividad 1" objectName="A1" />
-            <Actividad handle={setParameters} label="Actividad 2" objectName="A2" />
-            <Actividad handle={setParameters} label="Actividad 3" objectName="A3" />
+            <TextField
+              label="Actividad 1"
+              size="small"
+              value={resultados ? resultados.Act1 : ""}
+            />
+            <TextField
+              label="Actividad 2"
+              size="small"
+              value={resultados ? resultados.Act2 : ""}
+            />
+            <TextField
+              label="Actividad 3"
+              size="small"
+              value={resultados ? resultados.Act3 : ""}
+            />
           </Stack>
         </Stack>
       </Stack>
 
-      <Button
+      {/* <Button
         variant="contained"
+        onClick={() => fetchObject(55)}
         sx={{
           textTransform: "none !important",
           width: "90%",
@@ -104,8 +115,10 @@ export default function Homepage() {
         }}
       >
         Analizar
-      </Button>
-      <Resultados resultado={resultados} />
+      </Button> */}
+      {resultados && (
+        <Resultados resultado={resultados} />
+      )}
     </Stack>
   );
 }
