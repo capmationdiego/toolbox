@@ -1,0 +1,111 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
+import {
+  Button,
+  Divider,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { React, useState, useEffect } from "react";
+import NavigationBar from "../../components/NavigationBar";
+import Actividad from "../../components/Actividad";
+import Resultados from "../../components/Resultados";
+
+const data = {
+  resultado1: "Cuestionarios",
+  resultado2: "Actividades grupales",
+  resultado3: "Ensayos",
+};
+
+export default function Homepage() {
+  const [parameters, setParameters] = useState({});
+  const [resultados, setResultados] = useState({});
+  // const randomObjectID = () => Math.floor(Math.random() * (totalArtObjects) + 10);
+
+  // const fetchArtObject = async (objectID) => {
+  //   isLoading(true);
+  //   await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`)
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       if (res.message !== "ObjectID not found") {
+  //         if (res.primaryImageSmall !== "") {
+  //           setArtObject(res);
+  //         }
+  //       }
+  //     }).finally(() => isLoading(false));
+  // };
+
+  // const handleIconClick = () => {
+  //   fetchArtObject(randomObjectID());
+  // };
+
+  // useEffect(() => {
+  //   fetchArtObject(randomObjectID());
+  // }, []);
+
+  useEffect(() => {
+    console.log(parameters);
+  }, [parameters]);
+  return (
+    <Stack
+      sx={{
+        backgroundColor: "var(--main-background)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      direction="column"
+      spacing={1}
+    >
+      <NavigationBar />
+      <Typography variant="h5" noWrap>
+        Resumen académico por materia
+      </Typography>
+      <Stack
+        alignItems="center"
+        direction="column"
+        spacing={0}
+        sx={{
+          backgroundColor: "white",
+          borderRadius: "6px",
+          padding: 1,
+          width: "90%",
+          height: "auto",
+          maxWidth: "1500px",
+          boxShadow: "0 1px 16px 0 #c3c4c2",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h5" noWrap>
+          Menor puntuación
+        </Typography>
+        <Divider sx={{ marginBottom: "10px", width: "100%" }} />
+        <Stack direction="row" width="100%" spacing={1}>
+          <Stack direction="column" spacing={1} width="100%">
+            <Actividad handle={setParameters} label="Actividad 1" objectName="A1" />
+            <Actividad handle={setParameters} label="Actividad 2" objectName="A2" />
+            <Actividad handle={setParameters} label="Actividad 3" objectName="A3" />
+          </Stack>
+        </Stack>
+      </Stack>
+
+      <Button
+        variant="contained"
+        sx={{
+          textTransform: "none !important",
+          width: "90%",
+          maxWidth: "1500px",
+          backgroundColor: "#3268a8",
+          "&:hover": {
+            background: "#3a74ba !important",
+          },
+        }}
+      >
+        Analizar
+      </Button>
+      <Resultados resultado={resultados} />
+    </Stack>
+  );
+}

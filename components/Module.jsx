@@ -12,7 +12,7 @@ export default function Module({ module, description, image }) {
   const onCardClick = async () => {
     setPressed(true);
     setTimeout(() => {
-      // moduleRouter.push("/analisys");
+      moduleRouter.push("/materia");
     }, 400);
   };
 
