@@ -12,7 +12,6 @@ import NavigationBar from "../../components/NavigationBar";
 import Resultados from "../../components/Resultados";
 
 export default function Homepage() {
-  const [parameters, setParameters] = useState({});
   const [resultados, setResultados] = useState(null);
 
   useEffect(() => {
