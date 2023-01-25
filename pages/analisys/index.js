@@ -44,6 +44,19 @@ export default function Homepage() {
   //   fetchArtObject(randomObjectID());
   // }, []);
 
+  const handleClick = async () => {
+    await fetch(`http://127.0.0.1:5000/recomendacionnota`, {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(parameters),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setResultados(res);
+      }).finally();
+  };
   useEffect(() => {
     console.log(parameters);
   }, [parameters]);
@@ -103,6 +116,7 @@ export default function Homepage() {
 
       <Button
         variant="contained"
+        onClick={() => handleClick()}
         sx={{
           textTransform: "none !important",
           width: "90%",

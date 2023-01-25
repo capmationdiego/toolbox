@@ -12,10 +12,10 @@ export const MODULES = [
 ];
 
 export const MODULE_IMAGE = {
-  Ofimatica: "img/logo.png",
-  Marketing: "img/logo.png",
-  "Taller de empleo": "img/logo.png",
-  Estadisticas: "img/logo.png",
+  Ofimatica: "img/img.png",
+  Marketing: "img/img.png",
+  "Taller de empleo": "img/img.png",
+  Estadisticas: "img/img.png",
 };
 
 export const MODULE_DESCRIPTION = {
