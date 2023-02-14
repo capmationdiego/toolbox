@@ -14,9 +14,10 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.14",
     "@mui/material": "^5.10.14",
-    "next": "13.0.4",
+    "next": "^13.0.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^19.0.4",
