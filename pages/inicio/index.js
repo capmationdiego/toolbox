@@ -5,6 +5,7 @@ import Feed from "../../components/Feed";
 import Rightbar from "../../components/Rightbar";
 import { Stack, Box } from "@mui/material";
 import Form from "@components/Form";
+import CsvTableComponent from "@components/csv/CsvTableComponent";
 
 
 
@@ -24,7 +25,8 @@ export default function Inicio() {
 
             </Stack>
             <Stack spacing={2}>
-            <Form/>
+            {/* <Form/> */}
+            <CsvTableComponent />
             </Stack>
             
         </Box>
