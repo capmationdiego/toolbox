@@ -24,6 +24,7 @@ const CsvFilePicker = ({
     const firstSheet = reader.Sheets[firstSheetName];
 
     const data = XLSX.utils.sheet_to_json(firstSheet, { header: castRows ? 1 : 0 });
+    console.log(data);
 
     onCsvLoad?.(castRows ? castDataWithRows(data, castRows) : data);
   };
